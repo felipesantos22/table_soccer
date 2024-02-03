@@ -28,4 +28,15 @@ public class TeamController: ControllerBase
         var teams = await _teamRepository.Index();
         return Ok(teams);
     }
+    
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<List<Team>>> Show(int id)
+    {
+        var team = await _teamRepository.Show(id);
+        if (team == null)
+        {
+            return NotFound(new { message = "Team not found" });
+        }
+        return Ok(team);
+    }
 }

@@ -27,9 +27,10 @@ public class TeamRepository: ITeamRepository
         return teams;
     }
 
-    public Task<Team?> Show(int id)
+    public async Task<Team?> Show(int id)
     {
-        throw new NotImplementedException();
+        var team = await _dataContext.Teams.FindAsync(id);
+        return team;
     }
 
     public Task<Team> Update(int id, Team team)
