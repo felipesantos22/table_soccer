@@ -39,4 +39,13 @@ public class TeamController: ControllerBase
         }
         return Ok(team);
     }
+    
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<Team>> Update(int id, [FromBody] Team team)
+    {
+        var updateTeam = await _teamRepository.Show(id);
+        if (updateTeam == null) return NotFound(new { message = "Team not found" });
+        await _teamRepository.Update(id, team);
+        return Ok(new { message = "Team Updated" });
+    }
 }

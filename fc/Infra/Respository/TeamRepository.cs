@@ -33,9 +33,12 @@ public class TeamRepository: ITeamRepository
         return team;
     }
 
-    public Task<Team> Update(int id, Team team)
+    public async Task<Team> Update(int id, Team team)
     {
-        throw new NotImplementedException();
+        var teamUpdate = await _dataContext.Teams.FirstOrDefaultAsync(c => c.id == id);
+        teamUpdate!.teamName = team.teamName;
+        await _dataContext.SaveChangesAsync();
+        return teamUpdate;
     }
 
     public Task<Team> Destroy(int id)
