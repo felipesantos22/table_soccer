@@ -41,13 +41,17 @@ public class TeamRepository: ITeamRepository
         return teamUpdate;
     }
 
-    public Task<Team> Destroy(int id)
+    public async Task<Team> Destroy(int id)
     {
-        throw new NotImplementedException();
+        var team = await _dataContext.Teams.FirstOrDefaultAsync(t => t.id == id);
+        _dataContext.Teams.Remove(team!);
+        await _dataContext.SaveChangesAsync();
+        return team!;
     }
 
-    public Task<Team> Search(string name)
+    public async Task<bool> Search(string name)
     {
-        throw new NotImplementedException();
+        var teamName = await _dataContext.Teams.AnyAsync(n => n.teamName == name);
+        return teamName;
     }
 }

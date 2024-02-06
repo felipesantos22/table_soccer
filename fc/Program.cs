@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>();
-builder.Services.AddScoped<TeamRepository>();
+builder.Services.AddScoped<ITeamRepository,TeamRepository>();
 
 
 var app = builder.Build();
